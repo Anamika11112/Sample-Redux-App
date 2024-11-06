@@ -1,0 +1,37 @@
+.TodoMain_container{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px solid ;
+  padding: 50px;
+}
+.todo_box {
+  width: 80%;
+  height: 60px;
+  background-color: #e6c37c;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 
+    1px 1px 2px #00000033,
+    2px 2px 4px #00000033,
+    3px 3px 8px #00000026,
+    inset -1px -1px 2px #ffffff66;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px;
+  color: black;
+}
+.complete{
+  border: 3px solid green;
+}
+.notComplete{
+  border: 3px solid rgb(168, 0, 0);
+}
+.button_group{
+  display: flex;
+  gap:6px;
+}
+  
