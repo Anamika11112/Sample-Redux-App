@@ -1,4 +1,5 @@
 import React from "react";
+import "./index.css";
 function Input({
   type = "text",
   name,
@@ -22,5 +23,4 @@ function Input({
     </div>
   );
 }
-
 export default Input;
