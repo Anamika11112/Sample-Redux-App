@@ -1,0 +1,22 @@
+.app_container{
+    min-height: 70vh;
+    height: auto;
+    background-color: #f3e4b9;
+    display: flex;
+    flex-direction: column;
+}
+.app_container_main{
+    height: auto;
+    min-height: 70vh;
+    width: 100%;
+    display: flex;
+}
+.app_container_bottom{
+    height: 30vh;
+    width: 100%;
+    display: flex;
+    background-color: #d0a44c;
+    position: relative;
+    left: 0;
+    bottom: 0;
+}
