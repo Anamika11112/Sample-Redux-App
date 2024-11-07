@@ -22,7 +22,6 @@ export const todoSlice = createSlice({
       });
     },
     editTask: (state, action) => {
-      console.log(action);
       state.map((todo) => {
         if (todo.id === action.payload.id) {
           todo.text = action.payload.text;
