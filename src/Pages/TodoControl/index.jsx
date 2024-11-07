@@ -3,15 +3,14 @@ import "./index.css";
 import Input from "../../Components/Input";
 import Button from "../../Components/Button";
 import { useDispatch } from "react-redux";
-import { addTask, editTask } from "../../Redux/Slices/todoSlice";
-function TodoControl({ editId, editText, setEditId }) {
+function TodoControl({ editId, editText,setEditId }) {
   const [task, setTask] = useState("");
   const [error, setError] = useState("");
   useEffect(() => {
-    if (editId) {
-      setTask(editText);
-    } else {
-      setTask("");
+    if(editId){
+      setTask(editText)
+    }else{
+      setTask("")
     }
   }, [editId, editText]);
   const dispatch = useDispatch();
@@ -23,20 +22,15 @@ function TodoControl({ editId, editText, setEditId }) {
     if (task.trim() === "") {
       setError("Enter Task");
     } else {
-      if (editId) {
-        dispatch(editTask({ id: editId, text: task }));
-        setEditId(null);
-      } else {
-        const newTask = {
-          id: Date.now() + Math.random(),
-          text: task,
-          completed: false,
-        };
-        dispatch(addTask(newTask));
+      if(editId){
+        dispatch({ type: "todos/editTask", payload: {id:editId, text: task } });
+      }else{
+        dispatch({ type: "todos/addTask", payload: { text: task } });
       }
       setError("");
     }
     setTask("");
+    setEditId("")
   };
   return (
     <div className="TodoControl_container">
