@@ -11,13 +11,16 @@ function App() {
     <div className="app_container">
       <div className="app_container_main">
         <CounterMain />
-        <TodoMain setEditId={setEditId} setEditText={setEditText} />
+        <TodoMain
+          setEditId={setEditId}
+          setEditText={setEditText}
+        />
       </div>
       <div className="app_container_bottom">
         <CounterControl />
-        <TodoControl
-          editId={editId}
-          editText={editText}
+        <TodoControl 
+          editId={editId} 
+          editText={editText} 
           setEditId={setEditId}
         />
       </div>
