@@ -2,8 +2,8 @@ import React from "react";
 import "./index.css";
 import { useSelector } from "react-redux";
 function CounterMain() {
-  const count = useSelector((state) => state.count.count);
-  const todos = useSelector((state) => state.todos.todos);
+  const count = useSelector((state) => state.counter.count);
+  const todos = useSelector((state) => state.todoList);
   return (
     <div className="CounterMain_container">
       <h1>{count}</h1>
