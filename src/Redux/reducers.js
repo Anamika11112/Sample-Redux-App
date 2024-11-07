@@ -1,24 +1,10 @@
-
 const generateUniqueId = () => Date.now() + Math.random();
 const initialState = {
-  count: 0,
   todos: [
     { id: generateUniqueId(), text: "HTML Learning", completed: false },
     { id: generateUniqueId(), text: "CSS Learning", completed: false },
     { id: generateUniqueId(), text: "JavaScript Learning", completed: false },
   ],
-};
-const countReducer = (prevState = initialState, action) => {
-  switch (action.type) {
-    case "count/increment":
-      return { ...prevState, count: prevState.count + 1 };
-    case "count/decrement":
-      return { ...prevState, count: prevState.count - 1 };
-    case "count/reset":
-      return { ...prevState, count: initialState.count };
-    default:
-      return prevState;
-  }
 };
 const todoReducer = (prevState = initialState, action) => {
   const nextId = prevState.todos.length
@@ -54,4 +40,4 @@ const todoReducer = (prevState = initialState, action) => {
   }
 };
 
-export {countReducer,todoReducer}
+export {todoReducer}

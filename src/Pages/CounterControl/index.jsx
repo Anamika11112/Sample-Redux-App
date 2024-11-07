@@ -2,22 +2,14 @@ import React from "react";
 import "./index.css";
 import { useDispatch } from "react-redux";
 import Button from "../../Components/Button";
+import { increment,decrement,reset } from '../../Redux/Counter/counterActions';
 function CounterControl() {
   const dispatch = useDispatch();
-  const increment = () => {
-    dispatch({ type: "count/increment" });
-  };
-  const decrement = () => {
-    dispatch({ type: "count/decrement" });
-  };
-  const reset = () => {
-    dispatch({ type: "count/reset" });
-  };
   return (
     <div className="CounterControl_container">
-      <Button onClick={increment}>+</Button>
-      <Button onClick={decrement}>-</Button>
-      <Button onClick={reset}>Reset</Button>
+      <Button onClick={()=>dispatch(increment())}>+</Button>
+      <Button onClick={()=>dispatch(decrement())}>-</Button>
+      <Button onClick={()=>dispatch(reset())}>Reset</Button>
     </div>
   );
 }
