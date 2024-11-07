@@ -7,7 +7,7 @@ function CounterMain() {
   return (
     <div className="CounterMain_container">
       <h1>{count}</h1>
-      <h4>Target Hours To Study</h4>
+      <h4>My Study hours</h4>
       <h2>Subjects</h2>
       <ul>
         {todos.map((todos) => (
