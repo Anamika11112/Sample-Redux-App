@@ -26,7 +26,7 @@ function TodoMain({setEditText,setEditId}) {
           <div className="button_group">
           <Button
            onClick={() =>toggleComplete(todos.id)}
-          >{todos.completed ? "completed" : "mark as complete"}</Button>
+          >{todos.completed ? "completed" : "Accomplish"}</Button>
           <Button onClick={() =>deleteTask(todos.id)}>Delete</Button>
           <Button onClick={() =>handleEdit(todos)}>Edit</Button>
           </div>

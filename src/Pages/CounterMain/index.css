@@ -1,8 +1,16 @@
 .CounterMain_container{
-    width: 50%;
+    width: 30%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     border: 1px solid ;
+}
+.countercontainer_wrap{
+    width: 95%;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
 }

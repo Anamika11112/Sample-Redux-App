@@ -1,3 +1,55 @@
 .userPage_Container{
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
+    background-color: bisque;
+}
+.userHeader{
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.userBody{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.userContainer{
+    width: 95%;
+    height: 120px;
+    border-radius: 9px;
+    padding: 20px;
+    background-color: white;
+    margin: 20px auto ;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.userContainerHeading{
+    width: 95%;
+    height: 120px;
+    border-radius: 9px;
+    padding: 20px;
+    margin: 20px auto ;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #ff9b4f;
+}
+.userButtonGroup{
+    width: 20%; 
+    margin:20px auto ;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.userContent {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+} 
+.userContent h3{
+    width: 220px;
 }

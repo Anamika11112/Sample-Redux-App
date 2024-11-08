@@ -1,5 +1,5 @@
 .TodoMain_container{
-  width: 50%;
+  width: 70%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -8,8 +8,8 @@
   padding: 50px;
 }
 .todo_box {
-  width: 80%;
-  height: 60px;
+  width: 96%;
+  height: 102px;
   background-color: #e6c37c;
   margin-bottom: 20px;
   border-radius: 8px;

@@ -9,6 +9,7 @@ function CounterMain() {
   const navigate = useNavigate();
   return (
     <div className="CounterMain_container">
+      <div className="countercontainer_wrap">
       <h1>{count}</h1>
       <h4>Target Hours To Study</h4>
       <h2>Subjects</h2>
@@ -18,6 +19,7 @@ function CounterMain() {
         ))}
       </ul>
       <Button onClick={() => navigate("/UserDashboard")}>Show Users</Button>
+      </div>
     </div>
   );
 }
