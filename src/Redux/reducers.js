@@ -24,20 +24,24 @@ const todoReducer = (prevState = initialState, action) => {
     case "todos/completeTask":
       return {
         ...prevState,
-        todos: prevState.todos.map(todo => 
-          todo.id === action.payload.id ? {...todo ,completed: !todo.completed} : todo
-        )
+        todos: prevState.todos.map((todo) =>
+          todo.id === action.payload.id
+            ? { ...todo, completed: !todo.completed }
+            : todo
+        ),
       };
     case "todos/editTask":
       return {
         ...prevState,
-        todos: prevState.todos.map(todo => 
-          todo.id === action.payload.id ? {...todo ,text: action.payload.text} : todo
-        )
+        todos: prevState.todos.map((todo) =>
+          todo.id === action.payload.id
+            ? { ...todo, text: action.payload.text }
+            : todo
+        ),
       };
     default:
       return prevState;
   }
 };
 
-export {todoReducer}
+export { todoReducer };

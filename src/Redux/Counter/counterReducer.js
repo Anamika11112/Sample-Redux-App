@@ -14,5 +14,4 @@ const countReducer = (prevState = initialState, action) => {
       return prevState;
   }
 };
-
 export default countReducer;
