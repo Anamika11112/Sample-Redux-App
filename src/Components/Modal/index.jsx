@@ -1,14 +1,13 @@
-import React from 'react'
-import UserForm from '../UserForm'
-import './index.css'
-function Modal() {
+import React from "react";
+import "./index.css";
+function Modal({children,onClick}) {
   return (
     <div>
-        <div className='modal_container'>
-         <UserForm/>
-       </div>
-        <div className="overlay"></div>
+      <div className="modal_container">
+        {children}
+      </div>
+      <div className="overlay" onClick={onClick} ></div>
     </div>
-  )
+  );
 }
-export default Modal
+export default Modal;

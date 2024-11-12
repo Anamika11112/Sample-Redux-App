@@ -1,0 +1,13 @@
+.deleteConfirm_Container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.delete_button_group{
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: space-around;
+}
