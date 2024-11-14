@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import App from "../../../App";
 import UserDashboard from "../../../Pages/UserDashboard";
+import App from "../../../App";
 function AppRoutes() {
   return (
     <Routes>

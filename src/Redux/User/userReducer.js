@@ -1,79 +1,38 @@
 import {
-  ADD_USER_FAILURE,
-  ADD_USER_REQUEST,
-  ADD_USER_SUCCESS,
-  FETCH_USERS_FAILURE,
-  FETCH_USERS_REQUEST,
   FETCH_USERS_SUCCESS,
-  DELETE_USER_REQUEST,
-  DELETE_USER_SUCCESS,
-  DELETE_USER_FAILURE,
+  FETCH_SINGLE_USER,
+  UPDATE_USER_SUCCESS,
+  DELETE_SINGLE_USER,
 } from "./userActionTypes";
 const initialState = {
-  loading: false,
   users: [],
-  error: "",
+  user: [],
 };
 export const userDataReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_USERS_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      };
     case FETCH_USERS_SUCCESS:
       return {
         ...state,
-        loading: false,
         users: action.payload,
-        error: "",
       };
-    case FETCH_USERS_FAILURE:
+    case FETCH_SINGLE_USER:
       return {
         ...state,
-        loading: false,
-        users: [],
-        error: action.payload,
+        user: action.payload,
       };
-    case ADD_USER_REQUEST:
-      return{
+    case UPDATE_USER_SUCCESS:
+      return {
         ...state,
-        loading:true,
-      }
-    case ADD_USER_SUCCESS:
-      return{
+        users: state.users.map((user) =>
+          user.id === action.payload.id ? action.payload : user
+        ),
+      };
+    case DELETE_SINGLE_USER:
+      return {
         ...state,
-        users:[...state.users, action.payload],
-        loading:false,
-        error:""
-      }
-    case ADD_USER_FAILURE:
-      return{
-        ...state,
-        loading:false,
-        error:action.payload
-      }
-    case DELETE_USER_REQUEST:
-      return{
-        ...state,
-        loading:true,
-      }
-    case DELETE_USER_SUCCESS:
-      return{
-        ...state,
-        users:[...state.users,
-          state.users.filter((user)=>user.id !==  action.payload.id)
-        ],
-        loading:false,
-        error:""
-      }
-    case DELETE_USER_FAILURE:
-      return{
-        ...state,
-        loading:false,
-        error:action.payload
-      }
+        user: {},
+      };
     default:
       return state;
   }
-}
+};

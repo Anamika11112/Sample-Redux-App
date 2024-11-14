@@ -12,6 +12,10 @@ button {
     cursor: pointer;
     border-radius: 5px;
 }
+.button_content{
+    display: flex;
+    justify-content: space-around;
+}
 .closeButton{
     width: 40px;
 }

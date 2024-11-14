@@ -1,5 +1,5 @@
-import { nameRegex,ageRegex} from "../Contstants";
-export const dynamicInputHandler = (event,setState) => {
+import { nameRegex, ageRegex } from "../Contstants";
+export const dynamicInputHandler = (event, setState) => {
   const { name, value } = event.target;
   setState((prevData) => ({
     ...prevData,
@@ -14,11 +14,11 @@ export const validation = (formData, setFormError) => {
     setFormError("Enter valid Name");
   } else if (!nameRegex.test(designation)) {
     isValid = false;
-    setFormError("Enter valid Email");
+    setFormError("Enter valid Designation");
   } else if (!ageRegex.test(age)) {
     isValid = false;
     setFormError("Enter Valid age");
-  }  else if (parseInt(age) < 18) {
+  } else if (parseInt(age) < 18) {
     isValid = false;
     setFormError("Age must be 18 or older");
   } else {

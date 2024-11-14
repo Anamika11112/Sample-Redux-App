@@ -1,112 +1,125 @@
 import axios from "axios";
 import {
-  FETCH_USERS_REQUEST,
   FETCH_USERS_SUCCESS,
-  FETCH_USERS_FAILURE,
-  ADD_USER_REQUEST,
-  ADD_USER_SUCCESS,
-  ADD_USER_FAILURE,
-  DELETE_USER_REQUEST,
-  DELETE_USER_SUCCESS,
-  DELETE_USER_FAILURE,
+  FETCH_SINGLE_USER,
+  UPDATE_USER_SUCCESS,
+  DELETE_SINGLE_USER,
 } from "./userActionTypes";
+import { failureToast, successToast } from "../Toast/ToastActions";
 // Action creators
-export const fetchUsersRequest = () => {
-  return {
-    type: FETCH_USERS_REQUEST,
-  };
-};
 export const fetchUsersSuccess = (users) => {
   return {
     type: FETCH_USERS_SUCCESS,
     payload: users,
   };
 };
-export const fetchUsersFailure = (error) => {
+export const fetchSingleUser =(user) =>{
   return {
-    type: FETCH_USERS_FAILURE,
-    payload: error,
+    type:FETCH_SINGLE_USER,
+    payload:user,
+  }
+}
+export const updateUserSuccess = (user) => {
+  return {
+    type: UPDATE_USER_SUCCESS,
+    payload: user,
   };
 };
-export const addUserRequest = () => {
+export const deleteSingleUser = () => {
   return {
-    type: ADD_USER_REQUEST,
-  };
-};
-export const addUserSuccess = (user) => {
-  return {
-    type: ADD_USER_SUCCESS,
-    payload:user
-  };
-};
-export const addUserFailure = (error) => {
-  return {
-    type: ADD_USER_FAILURE,
-    payload:error
-  };
-};
-export const deleteUserRequest = () => {
-  return {
-    type: DELETE_USER_REQUEST,
-  };
-};
-export const deleteUserSuccess = (user) => {
-  return {
-    type: DELETE_USER_SUCCESS,
-    payload:user
-  };
-};
-export const deleteUserFailure = (error) => {
-  return {
-    type: DELETE_USER_FAILURE,
-    payload:error
+    type: DELETE_SINGLE_USER,
   };
 };
 // Thunk action creator
 const url = "https://6580190d6ae0629a3f54561f.mockapi.io/api/v1/employee";
-export const fetchData = () => {
+export const fetchData = (setLoader) => {
   return async (dispatch) => {
-    dispatch(fetchUsersRequest());
     try {
       const response = await axios.get(url);
       if (response.status === 200) {
         dispatch(fetchUsersSuccess(response.data));
+        if (setLoader) setLoader();
       } else {
         throw Error;
       }
     } catch (error) {
-      dispatch(fetchUsersFailure(error.message));
+      dispatch(failureToast("Data Fetching Failed"));
     }
   };
 };
-export const addData = (user) => {
+export const fetchSingleData  =(id,setFormLoader)=>{
   return async (dispatch) => {
-    dispatch(addUserRequest());
+    setFormLoader(true)
     try {
-      const response = await axios.post(url, user);
+      const response = await axios.get(`${url}/${id}`)
+      if(response.status===200){
+        dispatch(fetchSingleUser(response.data))
+        if (setFormLoader) setFormLoader();
+      }else{
+        throw Error;
+      }
+    } catch (error) {
+      setFormLoader(true)
+      dispatch(failureToast("User Data Fetching Failed"));
+    } 
+  }
+}
+export const addData = (user, setFormLoader,setModalVisibility) => {
+  return async (dispatch) => {
+    setFormLoader(true)
+    try {
+      const response = await axios.post( url,user );
       if (response.status === 201) {
-        dispatch(addUserSuccess(response.data));  
+        dispatch(fetchData());
+        if (setFormLoader) setFormLoader(false);
+        if (setModalVisibility) setModalVisibility(false);
+        dispatch(successToast("User Added Successfully"));
       } else {
-        throw  Error;
+        throw Error;
       }
     } catch (error) {
-      dispatch(addUserFailure(error.message));   
+      if (setFormLoader) setFormLoader(true);
+      dispatch(failureToast("User Addition Failed"));
     }
   };
 };
-export const deleteData = (id) => {
+export const deleteData = (userID, setDeleteLoader, setDeleteModalVisibiliy) => {
   return async (dispatch) => {
-    dispatch(deleteUserRequest());
     try {
-      const response = await axios.delete(`https://6580190d6ae0629a3f54561f.mockapi.io/api/v1/employee/${id}`);
-      if (response.status === 204) {
-        dispatch(deleteUserSuccess(response.data)); 
-        return true
+      console.log(userID)
+      const response = await axios.delete(`${url}/${userID}`);
+      if (response.status === 200) {
+        dispatch(fetchData());
+        if (setDeleteLoader) setDeleteLoader(false);
+        dispatch(successToast("User deleted successfully"));
+        if (setDeleteModalVisibiliy) setDeleteModalVisibiliy(false);
       } else {
-        throw  Error;
+        throw Error;
       }
     } catch (error) {
-      dispatch(deleteUserFailure(error.message));   
+      setDeleteLoader(false);
+      dispatch(failureToast("Delete Operation Failed"));
     }
   };
 };
+export const updateData =(id,user,setFormLoader,setModalVisibility)=>{
+  return async (dispatch) => {
+    setFormLoader(true)
+    try {
+      const response = await axios.put(`${url}/${id}`,user)
+      if(response.status===200){
+        dispatch(updateUserSuccess(response.data))
+        dispatch(fetchData());
+        if (setFormLoader) setFormLoader(false);
+        if (setModalVisibility) setModalVisibility(false);
+        dispatch(successToast("User updated successfully"));
+      }else{
+        throw Error
+      }
+    } catch (error) {
+      if (setFormLoader) setFormLoader(true);
+      dispatch(failureToast("Update Failed"));
+    }
+  }
+}
+
