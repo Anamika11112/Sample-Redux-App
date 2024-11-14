@@ -53,3 +53,6 @@
 .userContent h3{
     width: 220px;
 }
+.error-message{
+    color: #900000;
+}

@@ -9,24 +9,25 @@ import UserForm from "../../Components/UserForm";
 import DeleteConfirm from "../../Components/DeleteConfirm";
 import "./index.css";
 function UserDashboard() {
+  const dispatch = useDispatch();
   const { users } = useSelector((store) => store.userData);
   const [modalVisibility, setModalVisibility] = useState(false);
   const [deleteModalVisibility, setDeleteModalVisibiliy] = useState(false);
-  const [userID, setUserID] = useState("");
+  const [userId, setUserId] = useState("");
   const [loader, setLoader] = useState(false);
+  const [fetchFailed, setFetchFailed] = useState(false);
+  useEffect(() => {
+    setLoader(true);
+    dispatch(fetchData(() => setLoader(false), setFetchFailed));
+  }, []);
   const handleDelete = (id) => {
     setDeleteModalVisibiliy(true);
-    setUserID(id);
+    setUserId(id);
   };
   const handleEdit = (id) => {
     setModalVisibility(true);
-    setUserID(id);
+    setUserId(id);
   };
-  const dispatch = useDispatch();
-  useEffect(() => {
-    setLoader(true);
-    dispatch(fetchData(() => setLoader(false)));
-  }, []);
   return (
     <div className="userPage_Container">
       <div className="userHeader">
@@ -44,12 +45,11 @@ function UserDashboard() {
             <Toaster />
           </div>
         </div>
-
         {modalVisibility && (
           <Modal onClick={() => setModalVisibility(false)}>
             <UserForm
-              setUserID={setUserID}
-              userID={userID}
+              setUserId={setUserId}
+              userId={userId}
               setModalVisibility={setModalVisibility}
             />
           </Modal>
@@ -57,16 +57,22 @@ function UserDashboard() {
         {deleteModalVisibility && (
           <Modal onClick={() => setDeleteModalVisibiliy(false)}>
             <DeleteConfirm
-              setUserID={setUserID}
-              userID={userID}
+              setUserId={setUserId}
+              userId={userId}
               setDeleteModalVisibiliy={setDeleteModalVisibiliy}
             />
           </Modal>
         )}
         {loader ? (
           <Loader />
+        ) : fetchFailed ? (
+          <div className="error-message">
+            <h1>Data Fetching Failed. Please try again later.</h1>
+          </div>
+        ) : users.length === 0 ? (
+          <h1>Dashboard is empty</h1>
         ) : (
-          users?.map((user) => (
+          users.map((user) => (
             <div className="userContainer" key={user.id}>
               <div className="userContent">
                 <h3>{user?.name}</h3>

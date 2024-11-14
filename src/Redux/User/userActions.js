@@ -5,8 +5,7 @@ import {
   UPDATE_USER_SUCCESS,
   DELETE_SINGLE_USER,
 } from "./userActionTypes";
-import { failureToast, successToast } from "../Toast/ToastActions";
-// Action creators
+import toast from "react-hot-toast";
 export const fetchUsersSuccess = (users) => {
   return {
     type: FETCH_USERS_SUCCESS,
@@ -30,95 +29,102 @@ export const deleteSingleUser = () => {
     type: DELETE_SINGLE_USER,
   };
 };
-// Thunk action creator
 const url = "https://6580190d6ae0629a3f54561f.mockapi.io/api/v1/employee";
-export const fetchData = (setLoader) => {
+export const fetchData = (setLoader,setFetchFailed) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(url);
       if (response.status === 200) {
         dispatch(fetchUsersSuccess(response.data));
         if (setLoader) setLoader();
+        if (setFetchFailed) setFetchFailed(false);
       } else {
         throw Error;
       }
     } catch (error) {
-      dispatch(failureToast("Data Fetching Failed"));
+      toast.error("Data Fetching Failed");
+      if(setFetchFailed) setFetchFailed(true);
+    }
+    finally{
+      if (setLoader) setLoader();
     }
   };
 };
-export const fetchSingleData  =(id,setFormLoader)=>{
+export const fetchSingleData  =(id,setFormLoading)=>{
   return async (dispatch) => {
-    setFormLoader(true)
+    if(setFormLoading) setFormLoading(true)
     try {
       const response = await axios.get(`${url}/${id}`)
       if(response.status===200){
         dispatch(fetchSingleUser(response.data))
-        if (setFormLoader) setFormLoader();
+        if(setFormLoading) setFormLoading(false)
       }else{
         throw Error;
       }
     } catch (error) {
-      setFormLoader(true)
-      dispatch(failureToast("User Data Fetching Failed"));
+      if(setFormLoading) setFormLoading(true)
+      toast.error("User Data Fetching Failed");
     } 
   }
 }
-export const addData = (user, setFormLoader,setModalVisibility) => {
+export const addData = (user, setIsSubmitting,setModalVisibility) => {
   return async (dispatch) => {
-    setFormLoader(true)
+    if (setIsSubmitting) setIsSubmitting(true);
     try {
       const response = await axios.post( url,user );
       if (response.status === 201) {
         dispatch(fetchData());
-        if (setFormLoader) setFormLoader(false);
+        if (setIsSubmitting) setIsSubmitting(false);
         if (setModalVisibility) setModalVisibility(false);
-        dispatch(successToast("User Added Successfully"));
+        toast.success("User Added Successfully");
       } else {
         throw Error;
       }
     } catch (error) {
-      if (setFormLoader) setFormLoader(true);
-      dispatch(failureToast("User Addition Failed"));
+      toast.error("User Addition Failed");
+    }
+    finally{
+      if (setIsSubmitting) setIsSubmitting(false);
     }
   };
 };
-export const deleteData = (userID, setDeleteLoader, setDeleteModalVisibiliy) => {
+export const deleteData = (id, setDeleteLoader, setDeleteModalVisibiliy) => {
   return async (dispatch) => {
     try {
-      console.log(userID)
-      const response = await axios.delete(`${url}/${userID}`);
+      const response = await axios.delete(`${url}/${id}`);
       if (response.status === 200) {
         dispatch(fetchData());
         if (setDeleteLoader) setDeleteLoader(false);
-        dispatch(successToast("User deleted successfully"));
+        toast.success("User deleted successfully");
         if (setDeleteModalVisibiliy) setDeleteModalVisibiliy(false);
       } else {
         throw Error;
       }
     } catch (error) {
-      setDeleteLoader(false);
-      dispatch(failureToast("Delete Operation Failed"));
+      if (setDeleteLoader) setDeleteLoader(false);
+      toast.error("Delete Operation Failed");
     }
   };
 };
-export const updateData =(id,user,setFormLoader,setModalVisibility)=>{
+export const updateData =(id,user,setIsSubmitting,setModalVisibility)=>{
   return async (dispatch) => {
-    setFormLoader(true)
+    if (setIsSubmitting) setIsSubmitting(true)
     try {
       const response = await axios.put(`${url}/${id}`,user)
       if(response.status===200){
         dispatch(updateUserSuccess(response.data))
         dispatch(fetchData());
-        if (setFormLoader) setFormLoader(false);
+        if (setIsSubmitting) setIsSubmitting(false);
         if (setModalVisibility) setModalVisibility(false);
-        dispatch(successToast("User updated successfully"));
+        toast.success("User updated successfully");
       }else{
         throw Error
       }
-    } catch (error) {
-      if (setFormLoader) setFormLoader(true);
-      dispatch(failureToast("Update Failed"));
+    } catch (error) { 
+      toast.error("Update Failed");
+    }
+    finally{
+      if (setIsSubmitting) setIsSubmitting(false);
     }
   }
 }

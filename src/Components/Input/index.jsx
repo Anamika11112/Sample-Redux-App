@@ -7,6 +7,7 @@ function Input({
   onChange,
   placeholder,
   label,
+  disabled,
   rest,
 }) {
   return (
@@ -18,6 +19,7 @@ function Input({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
+        disabled={disabled}
         {...rest}
       />
     </div>

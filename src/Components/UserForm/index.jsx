@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { dynamicInputHandler, validation } from "../../Helpers/Utils";
 import Input from "../Input";
 import Button from "../Button";
+import Loader from "../Loader";
 import {
   addData,
   deleteSingleUser,
@@ -10,31 +11,32 @@ import {
   updateData,
 } from "../../Redux/User/userActions";
 import "./index.css";
-function UserForm({ setUserID, setModalVisibility, userID }) {
+function UserForm({ setUserId, setModalVisibility, userId }) {
   const dispatch = useDispatch();
-  const [formLoader, setFormLoader] = useState(false);
+  const { user } = useSelector((state) => state.userData);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formLoading, setFormLoading] = useState(false);
+  const [formError, setFormError] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     designation: "",
     age: "",
   });
-  const [formError, setFormError] = useState("");
-  const { user } = useSelector((state) => state.userData);
   useEffect(() => {
-    if (userID) dispatch(fetchSingleData(userID, setFormLoader));
-  }, [userID]);
+    if (userId) dispatch(fetchSingleData(userId, setFormLoading));
+  }, [userId]);
   useEffect(() => {
-    if (userID && user) {
+    if (userId && user) {
       setFormData({
         name: user.name,
         designation: user.designation,
         age: user.age,
       });
     }
-  }, [userID, user]);
+  }, [userId, user]);
   useEffect(() => {
     return () => {
-      setUserID("");
+      setUserId("");
       dispatch(deleteSingleUser());
     };
   }, []);
@@ -42,17 +44,18 @@ function UserForm({ setUserID, setModalVisibility, userID }) {
     event.preventDefault();
     const valid = validation(formData, setFormError);
     if (valid) {
-      setFormError("");
-      if (userID) {
+      if (userId) {
         dispatch(
-          updateData(userID, formData, setFormLoader, setModalVisibility)
+          updateData(userId, formData, setIsSubmitting, setModalVisibility)
         );
       } else {
-        dispatch(addData(formData, setFormLoader, setModalVisibility));
+        dispatch(addData(formData, setIsSubmitting, setModalVisibility));
       }
     }
   };
-  return (
+  return formLoading ? (
+    <Loader />
+  ) : (
     <div className="form_container">
       <div className="formHeading">
         <h1>User Registration</h1>
@@ -69,12 +72,14 @@ function UserForm({ setUserID, setModalVisibility, userID }) {
           name="name"
           value={formData.name}
           placeholder="Enter Name"
+          disabled={isSubmitting}
         />
         <Input
           onChange={(event) => dynamicInputHandler(event, setFormData)}
           name="designation"
           value={formData.designation}
           placeholder="Enter Designantion"
+          disabled={isSubmitting}
         />
         <Input
           type="number"
@@ -82,14 +87,15 @@ function UserForm({ setUserID, setModalVisibility, userID }) {
           name="age"
           value={formData.age}
           placeholder="Enter Age"
+          disabled={isSubmitting}
         />
         <div className="error_container">{formError && <p>{formError}</p>}</div>
         <Button
           type="submit"
-          loading={formLoader}
+          loading={isSubmitting}
           loaderClassname="small_loader"
         >
-          {userID ? "Update" : "Submit"}
+          {userId ? "Update" : "Submit"}
         </Button>
       </form>
     </div>

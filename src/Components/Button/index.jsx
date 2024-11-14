@@ -22,7 +22,6 @@ function Button({
         {loading ? (
           <div className="button_content">
             <Loader className={loaderClassname} />
-            Loading
           </div>
         ) : (
           children

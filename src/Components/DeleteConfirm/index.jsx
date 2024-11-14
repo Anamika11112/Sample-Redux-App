@@ -3,18 +3,17 @@ import { useDispatch } from "react-redux";
 import { deleteData } from "../../Redux/User/userActions";
 import Button from "../Button";
 import "./index.css";
-function DeleteConfirm({ setUserID, setDeleteModalVisibiliy, userID }) {
-  useEffect(() => {
-    return () => {
-      setUserID("");
-    };
-  }, []);  
-  console.log(userID)
+function DeleteConfirm({ setUserId, setDeleteModalVisibiliy, userId }) {
   const dispatch = useDispatch();
   const [deleteLoader, setDeleteLoader] = useState(false);
+  useEffect(() => {
+    return () => {
+      setUserId("");
+    };
+  }, []);
   const handleDelete = () => {
     setDeleteLoader(true);
-    dispatch(deleteData(userID, setDeleteLoader, setDeleteModalVisibiliy));
+    dispatch(deleteData(userId, setDeleteLoader, setDeleteModalVisibiliy));
   };
   return (
     <div className="deleteConfirm_Container">
