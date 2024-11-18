@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { dynamicInputHandler, validation } from "../../Helpers/Utils";
-import Input from "../Input";
-import Button from "../Button";
-import Loader from "../Loader";
+import { dynamicInputHandler } from "../../../Helpers/Utils";
+import { validation } from "./validation";
+import Input from "../../../Components/TextInput";
+import Button from "../../../Components/Button";
+import Loader from "../../../Components/Loader";
 import {
   addData,
   deleteSingleUser,
   fetchSingleData,
   updateData,
-} from "../../Redux/User/userActions";
+} from "../../../Redux/User/userActions";
 import "./index.css";
 function UserForm({ setUserId, setModalVisibility, userId }) {
   const dispatch = useDispatch();

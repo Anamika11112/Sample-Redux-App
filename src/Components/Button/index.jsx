@@ -11,23 +11,21 @@ function Button({
   loaderClassname,
 }) {
   return (
-    <div>
-      <button
-        type={type}
-        name={name}
-        onClick={onClick}
-        disabled={loading}
-        className={`button ${className}`}
-      >
-        {loading ? (
-          <div className="button_content">
-            <Loader className={loaderClassname} />
-          </div>
-        ) : (
-          children
-        )}
-      </button>
-    </div>
+    <button
+      type={type}
+      name={name}
+      onClick={onClick}
+      disabled={loading}
+      className={`button ${className}`}
+    >
+      {loading ? (
+        <div className="button_content">
+          <Loader className={loaderClassname} />
+        </div>
+      ) : (
+        children
+      )}
+    </button>
   );
 }
 export default Button;

@@ -5,8 +5,8 @@ import { fetchData } from "../../Redux/User/userActions";
 import Loader from "../../Components/Loader";
 import Button from "../../Components/Button";
 import Modal from "../../Components/Modal";
-import UserForm from "../../Components/UserForm";
-import DeleteConfirm from "../../Components/DeleteConfirm";
+import UserForm from "./UserForm";
+import ConfirmDelete from "./ConfirmDelete";
 import "./index.css";
 function UserDashboard() {
   const dispatch = useDispatch();
@@ -56,7 +56,7 @@ function UserDashboard() {
         )}
         {deleteModalVisibility && (
           <Modal onClick={() => setDeleteModalVisibiliy(false)}>
-            <DeleteConfirm
+            <ConfirmDelete
               setUserId={setUserId}
               userId={userId}
               setDeleteModalVisibiliy={setDeleteModalVisibiliy}

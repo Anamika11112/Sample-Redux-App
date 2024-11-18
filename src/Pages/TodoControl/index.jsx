@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Button from "../../Components/Button";
-import Input from "../../Components/Input";
+import Input from "../../Components/TextInput";
 import "./index.css";
 function TodoControl({ editId, editText, setEditId }) {
   const [task, setTask] = useState("");

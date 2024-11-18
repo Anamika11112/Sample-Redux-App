@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { deleteData } from "../../Redux/User/userActions";
-import Button from "../Button";
+import { deleteData } from "../../../Redux/User/userActions";
+import Button from "../../../Components/Button";
 import "./index.css";
-function DeleteConfirm({ setUserId, setDeleteModalVisibiliy, userId }) {
+function ConfirmDelete({ setUserId, setDeleteModalVisibiliy, userId }) {
   const dispatch = useDispatch();
   const [deleteLoader, setDeleteLoader] = useState(false);
   useEffect(() => {
@@ -37,4 +37,4 @@ function DeleteConfirm({ setUserId, setDeleteModalVisibiliy, userId }) {
     </div>
   );
 }
-export default DeleteConfirm;
+export default ConfirmDelete;

@@ -128,4 +128,3 @@ export const updateData =(id,user,setIsSubmitting,setModalVisibility)=>{
     }
   }
 }
-

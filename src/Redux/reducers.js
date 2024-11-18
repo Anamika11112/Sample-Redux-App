@@ -43,5 +43,4 @@ const todoReducer = (prevState = initialState, action) => {
       return prevState;
   }
 };
-
 export { todoReducer };
