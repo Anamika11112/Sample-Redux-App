@@ -1,4 +1,5 @@
 import React from "react";
+import "./index.css";
 function Input({
   type = "text",
   name,
@@ -6,6 +7,7 @@ function Input({
   onChange,
   placeholder,
   label,
+  disabled,
   rest,
 }) {
   return (
@@ -17,10 +19,10 @@ function Input({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
+        disabled={disabled}
         {...rest}
       />
     </div>
   );
 }
-
 export default Input;
